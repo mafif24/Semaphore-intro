@@ -20,3 +20,9 @@
       name: zabbix-agent
       enablerepo: zabbix
       state: latest
+  - name: "Check New Version"
+    command: zabbix_agentd -V
+    register: new
+  - name: "Result"
+    debug:
+      msg: "{{new}}"
