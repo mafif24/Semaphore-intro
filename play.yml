@@ -1,6 +1,6 @@
 ---
 - hosts: zabbix
-  become: no
+  become: true
   gather_facts: no
   tasks:
   - name: "Check Old Version"
@@ -13,8 +13,8 @@
     when: '"6.0." not in old'
     replace:
       path: /etc/yum.repos.d/zabbix.repo
-      regexp: 'baseurl=http://repo.zabbix.com/zabbix/5.0/rhel/8/$basearch/'
-      replace: 'baseurl=http://repo.zabbix.com/zabbix/6.0/rhel/8/$basearch/'
+      regexp: '/\d.\d/'
+      replace: '6.0'
   - name: "Update ZAbbix Agent"
     when: '"6.0." not in old'
     ansible.builtin.yum:
