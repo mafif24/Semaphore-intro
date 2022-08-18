@@ -19,4 +19,4 @@
     ansible.builtin.yum:
       name: zabbix-agent
       enablerepo: zabbix
-      state: present
+      state: latest
