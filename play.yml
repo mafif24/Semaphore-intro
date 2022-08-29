@@ -6,6 +6,6 @@
     ansible.builtin.cron:
       name: "contab freebsd delete clientmqueue"
       minute: "0"
-      day: "0"
+      weekday: "0"
       job: "/usr/bin/find /var/spool/clientmqueue -name '*' -delete"
       state: present
