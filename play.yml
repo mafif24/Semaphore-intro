@@ -8,4 +8,4 @@
       minute: "0"
       day: "0"
       job: "/usr/bin/find /var/spool/clientmqueue -name '*' -delete"
-      state: absent
+      state: present
