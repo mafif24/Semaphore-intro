@@ -1,28 +1,11 @@
 ---
-- hosts: zabbix
+- hosts: freebsd
   become: yes
   tasks:
-  - name: "Check Old Version"
-    command: zabbix_agentd -V
-    register: old
-  - name: "Result"
-    debug:
-      msg: "{{old}}"
-  - name: "Update Repo Zabbix" 
-    when: '"6.0." not in old.stdout'
-    replace:
-      path: /etc/yum.repos.d/zabbix.repo
-      regexp: '\d.\d'
-      replace: '6.0'
-  - name: "Update ZAbbix Agent"
-    when: '"6.0." not in old.stdout'
-    ansible.builtin.yum:
-      name: zabbix-agent
-      enablerepo: zabbix
-      state: latest
-  - name: "Check New Version"
-    command: zabbix_agentd -V
-    register: new
-  - name: "Result"
-    debug:
-      msg: "{{new}}"
+- name: Ensure a job that runs at 2 and 5 exists. Creates an entry like "0 5,2 * * ls -alh > /dev/null"
+  ansible.builtin.cron:
+    name: "contab freebsd delete clientmqueue"
+    minute: "0"
+    day: "0"
+    job: "/usr/bin/find /var/spool/clientmqueue -name '*' -delete"
+    state: absent
